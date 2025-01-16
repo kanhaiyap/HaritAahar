@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Payment</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Optional: For AJAX requests -->
+</head>
+<body>
+    <h1>Confirm Your Payment</h1>
+    <form id="payment-confirmation-form">
+        <label for="user-name">Name:</label>
+        <input type="text" id="user-name" required><br><br>
+
+        <label for="user-address">Address:</label>
+        <textarea id="user-address" required></textarea><br><br>
+
+        <label for="user-mobile">Mobile Number:</label>
+        <input type="text" id="user-mobile" required><br><br>
+
+        <label for="order-id">Order ID:</label>
+        <input type="text" id="order-id" readonly><br><br>
+
+        <button type="submit" onclick="confirmPayment(event)">Confirm Payment</button>
+    </form>
+
+    <script>
+        function getCSRFToken() {
+            var name = 'csrftoken';
+            var value = document.cookie.match('(^|;)\\s*' + name + '=([^;]*)');
+            return value ? value.pop() : '';
+        }
+
+        function confirmPayment(event) {
+            event.preventDefault();  // Prevent form submission
+
+            const userName = document.getElementById('user-name').value;
+            const userAddress = document.getElementById('user-address').value;
+            const userMobile = document.getElementById('user-mobile').value;
+            const orderId = document.getElementById('order-id').value;  // Assuming you have the order ID pre-filled
+
+            if (!userName || !userAddress || !userMobile || !orderId) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            // Send this data to the server after payment confirmation
+            fetch('/confirm-payment/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCSRFToken()
+                },
+                body: JSON.stringify({
+                    name: userName,
+                    address: userAddress,
+                    mobile: userMobile,
+                    order_id: orderId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Payment confirmed successfully!');
+                    // Optionally redirect to order confirmation page or other actions
+                } else {
+                    alert('Payment confirmation failed.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while confirming the payment.');
+            });
+        }
+
+        // Example: Pre-fill the order ID if you have it available on the page.
+        document.getElementById('order-id').value = "12345";  // Replace with dynamic order ID if available
+    </script>
+</body>
+</html>

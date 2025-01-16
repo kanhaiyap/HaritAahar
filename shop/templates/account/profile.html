@@ -1,0 +1,46 @@
+<!-- profile.html -->
+{% extends 'base.html' %}
+
+{% block title %}Profile | Harit Aahar{% endblock %}
+
+{% block content %}
+<h1>Your Profile</h1>
+
+<div>
+    <h2>User Details</h2>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>First Name:</strong> {{ user.first_name }}</p>
+    <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+</div>
+
+<hr>
+
+<h2>Your Orders</h2>
+{% if orders %}
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Address</th>
+                <th>Total Price</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.address }}</td>
+                <td>₹{{ order.total_price }}</td>
+                <td>{{ order.status }}</td>
+                <td>{{ order.created_at }}</td>  <!-- assuming you have created_at field -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>You have no orders yet.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Harit Aahar | Nurturing Nature{% endblock %}
+
+{% block content %}
+
+<div class="content-wrapper">
+  <!-- Hero Section with Sliding Images -->
+  <section id="hero">
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+      <div class="carousel-inner">
+        {% for slide_image in slide_images %}
+          <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <img src="{% static slide_image %}" class="d-block w-100" alt="Slide Image">
+            <div class="carousel-caption d-none d-md-block">
+              <h1>Revolutionizing the Green Industry</h1>
+              <p>We deliver the freshest, eco-friendly food at your doorstep while nurturing the planet.</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <!-- Carousel Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section id="categories">
+    <div class="container">
+      <h2>Our Product Categories</h2>
+      <div class="category-container">
+        {% for category, image in category_images.items %}
+          <div class="category-box">
+            <a href="{% url 'product_page' category %}">
+              <img src="{% static image %}" alt="{{ category }}" class="category-image">
+            </a>
+            <p>{{ category }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+</div>
+
+{% endblock %}

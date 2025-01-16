@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category }} Products | Harit Aahar{% endblock %}
+{% load static %}
+
+{% block content %}
+{% if products %}
+    <div class="product-container">
+        {% for product in products %}
+            <div class="product-item">
+                <!-- Dynamically create the image path -->
+               
+                    <img src="{% static product.image_url %}" alt="{{ product.name }}">
+                
+                <div class="product-details">
+                    <strong>{{ product.name }}</strong><br>
+                    Price: ₹{{ product.price }}<br>
+                    Description: {{ product.description }}
+                </div>
+            </div>
+   
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No products found.</p>
+{% endif %}
+
+
+
+{% endblock %}
+

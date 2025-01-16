@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | Harit Aahar{% endblock %}
+
+{% block content %}
+<h1>Welcome to Harit Aahar</h1>
+<p>Your journey towards sustainable living starts here!</p>
+
+<body>
+    <h1>Edit Products</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <table border="1" id="productsTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Brand</th>
+                    <th>Color</th>
+                    <th>Size</th>
+                    <th>Quantity</th>
+                    <th>Availability</th>
+                    <th>Rating</th>
+                    <th>Reviews</th>
+                    <th>Expiry Date</th>
+                    <th>Shipping Cost</th>
+                    <th>Seller Name</th>
+                    <th>Seller Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td><input type="text" class="product_name" value="{{ product.product_name }}"></td>
+                    <td><input type="text" class="product_description" value="{{ product.product_description }}"></td>
+                    <td><input type="number" class="price" step="0.01" value="{{ product.price }}"></td>
+                    <td><input type="text" class="category_name" value="{{ product.category_name }}"></td>
+                    <td><input type="text" class="brand" value="{{ product.brand }}"></td>
+                    <td><input type="text" class="color" value="{{ product.color }}"></td>
+                    <td><input type="text" class="size" value="{{ product.size }}"></td>
+                    <td><input type="number" class="quantity" value="{{ product.quantity }}"></td>
+                    <td><input type="checkbox" class="availability" {% if product.availability %}checked{% endif %}></td>
+                    <td><input type="number" class="rating" step="0.1" value="{{ product.rating }}"></td>
+                    <td><input type="number" class="reviews" value="{{ product.reviews }}"></td>
+                    <td><input type="text" class="expiry_date" value="{{ product.expiry_date }}"></td>
+                    <td><input type="number" class="shipping_cost" step="0.01" value="{{ product.shipping_cost }}"></td>
+                    <td><input type="text" class="seller_name" value="{{ product.seller_name }}"></td>
+                    <td><input type="number" class="seller_rating" step="0.1" value="{{ product.seller_rating }}"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="button" onclick="addProductRow()">Add New Product</button>
+        <button type="button" onclick="saveChanges()">Save Changes</button>
+    </form>
+    {% endblock %}

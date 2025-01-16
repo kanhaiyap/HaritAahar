@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category }} Products | Harit Aahar{% endblock %}
+{% load static %}
+
+{% block content %}
+<h1>Products in "{{ category }}"</h1>
+{% if products %}
+    <ul>
+        {% for product in products %}
+        <li>
+            <!-- Product Image -->
+            {% if product.image_url %}
+                <img src="{{ product.image_url }}" alt="{{ product.product_name }}" width="300" height="200" />
+            {% else %}
+                <p>No image available</p>
+            {% endif %}
+
+            <!-- Product Name and Description -->
+            <h2>{{ product.product_name }}</h2>
+            <p>{{ product.product_description }}</p>
+            <p>Price: ₹{{ product.price }}</p>
+            <p>Brand: {{ product.brand }}</p>
+            <p>Color: {{ product.color }}</p>
+            <p>Size: {{ product.size }}</p>
+            <p>Quantity: {{ product.quantity }}</p>
+            <p>Availability: {{ product.availability }}</p>
+            <p>Rating: {{ product.rating }}</p>
+            <p>Reviews: {{ product.reviews }}</p>
+            <p>Expiry Date: {{ product.expiry_date }}</p>
+            <p>Shipping Cost: ₹{{ product.shipping_cost }}</p>
+            <p>Seller: {{ product.seller_name }}</p>
+            <p>Seller Rating: {{ product.seller_rating }}</p>
+
+            <!-- Add to Cart Button -->
+            
+        </li>
+        <button type="button" onclick="addToCart('{{ product.product_name }}', '{{ product.product_name|escapejs }}', '{{ product.price }}', '{% static product.image_url %}')">
+            Add to Cart
+   </button>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No products found in this category.</p>
+{% endif %}
+
+<script src="{% static 'js/script.js' %}"></script> <!-- Load script.js here -->
+{% endblock %}

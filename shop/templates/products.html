@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Products | Harit Aahar{% endblock %}
+{% load static %}
+{% block content %}
+
+
+<h1>Our Products</h1>
+<div class="product-container">
+    {% for product in products %}
+    <div class="product-box">
+        <img src="{% static product.image %}" alt="{{ product.name }}" width="300" height="200">
+        <h3>{{ product.name }}</h3>
+        <p>Price: ₹{{ product.price }}</p>
+        
+        <button type="button" onclick="addToCart('{{ product.id }}', '{{ product.name|escapejs }}', '{{ product.price }}', '{% static product.image %}')">
+            Add to Cart
+        </button>
+
+    </div>
+
+    {% endfor %}
+</div>
+<script src="{% static 'js/script.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% block content %}
+<h1>Your Cart</h1>
+<div id="cart-items"></div>
+<p><strong>Total Price: ₹<span id="total-price">0</span></strong></p>
+<button id="checkout-btn" href="javascript:void(0);" class="btn btn-success">Checkout</button>
+
+<h2>Select Address for Delivery</h2>
+{% if addresses %}
+  <select id="address-select">
+    {% for address in addresses %}
+      <option value="{{ address.id }}">
+        {{ address.name }}, {{ address.address_line1 }}, {{ address.city }} - {{ address.postal_code }}
+      </option>
+    {% endfor %}
+  </select>
+{% else %}
+  <p>No saved addresses. <a href="{% url 'manage_address' %}">Add an address</a> to proceed.</p>
+{% endif %}
+
+<h3>Your Address</h3>
+<p>{{ user_address.address }}</p>
+<p>{{ user_address.phone_number }}</p>
+<p>{{ user_address.city }}</p>
+<p>{{ user_address.state }}</p>
+<p>{{ user_address.postal_code }}</p>
+
+<!-- Link to edit the address -->
+<a href="{% url 'manage_address' %}" class="btn btn-primary">Edit Address</a>
+
+<script>
+  // Retrieve the cart items from localStorage
+  const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+  const cartItemsContainer = document.getElementById('cart-items');
+  const totalPriceContainer = document.getElementById('total-price');
+  const checkoutBtn = document.getElementById('checkout-btn');
+
+  let totalPrice = 0;
+
+  if (cartItems.length === 0) {
+    cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+    totalPriceContainer.innerText = '0.00';
+    checkoutBtn.style.display = 'none';
+  } else {
+    // Render cart items
+    cartItemsContainer.innerHTML = cartItems.map((item, index) => {
+      totalPrice += item.price * item.quantity;  // Calculate the total price
+
+      return `
+        <div class="cart-item" style="display: flex; align-items: center; margin-bottom: 20px;">
+          
+          <img src="${item.image}" alt="${item.name}" width="100" height="100" style="margin-right: 20px;">
+          <div style="flex-grow: 1;">
+            <h3>${item.name}</h3>
+            <p>Price: ₹${item.price}</p>
+            <p>Quantity: <button class="decrease-btn" data-index="${index}">-</button> 
+              <span>${item.quantity}</span> 
+              <button class="increase-btn" data-index="${index}">+</button></p>
+            <p>Total: ₹${item.price * item.quantity}</p>
+          </div>
+          <button class="remove-btn" data-index="${index}" style="margin-left: 20px;">Remove</button>
+        </div>
+      `;
+    }).join('');
+
+    // Update total price
+    totalPriceContainer.innerText = totalPrice.toFixed(2);
+    checkoutBtn.style.display = 'inline-block'; // Show checkout button
+  }
+
+  // Update localStorage and UI on quantity change or item removal
+  function updateCart() {
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+    location.reload(); // Reload the page to reflect changes
+  }
+
+  // Attach event listeners for increase, decrease, and remove buttons
+  cartItemsContainer.addEventListener('click', function (e) {
+    const target = e.target;
+    const index = parseInt(target.dataset.index);
+
+    if (target.classList.contains('increase-btn')) {
+      cartItems[index].quantity++;
+      updateCart();
+    } else if (target.classList.contains('decrease-btn')) {
+      if (cartItems[index].quantity > 1) {
+        cartItems[index].quantity--;
+      } else {
+        cartItems.splice(index, 1); // Remove item if quantity is 0
+      }
+      updateCart();
+    } else if (target.classList.contains('remove-btn')) {
+      cartItems.splice(index, 1); // Remove item
+      updateCart();
+    }
+  });
+
+  // Redirect to payment page for checkout
+  checkoutBtn.addEventListener('click', function() {
+    window.location.href = "/create_order/?total_price=" + totalPrice.toFixed(2);
+  });
+</script>
+{% endblock %}

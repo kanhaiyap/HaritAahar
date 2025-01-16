@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders Management</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Orders Management</h1>
+
+    <section>
+        <h2>Total Orders: {{ orders.count }}</h2>
+    </section>
+
+    <section>
+        <h2>Order Details</h2>
+        <table border="1" cellpadding="10">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer Name</th>
+                    <th>Total Price</th>
+                    <th>Payment Status</th>
+                    <th>Fulfillment</th>
+                    <th>Issue Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.customer_name }}</td>
+                    <td>{{ order.total_price }}</td>
+                    <td>{{ order.payment_status }}</td>
+                    <td>{{ order.is_fulfilled|yesno:"Yes,No" }}</td>
+                    <td>{{ order.issue_status }}</td>
+                    <td>
+                        {% if order.payment_status == 'unpaid' %}
+                        <form method="POST" action="{% url 'mark_paid' order.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Mark as Paid</button>
+                        </form>
+                        {% endif %}
+                        {% if not order.is_fulfilled %}
+                        <form method="POST" action="{% url 'fulfill_order' order.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Fulfill Order</button>
+                        </form>
+                        {% endif %}
+                        {% if order.issue_status == 'pending' %}
+                        <form method="POST" action="{% url 'resolve_issue' order.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Resolve Issue</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

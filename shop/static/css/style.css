@@ -1,0 +1,824 @@
+/* General reset */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column; /* Ensure footer stays at the bottom */
+}
+
+/* Header */
+header {
+  background-color: #9eb5a6;
+  justify-content: space-between; 
+  color: white;
+  padding: 15px 0;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  height: 85px; /* Set the height of the header */
+}
+
+header ul {
+  list-style: none;
+  font-size: 20px;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+  padding-right: 20px;
+}
+
+header ul li {
+  margin: 0 10px;
+}
+
+header ul li a {
+  text-decoration: none;
+  color: white;
+}
+
+header img {
+  width: 200px;
+  height: auto;
+  float: left;
+  margin-left: 20px;
+}
+
+/* Make space for header on the page */
+body {
+  padding-top: 80px; /* Adjust this to match the height of the header */
+  flex: 1;
+}
+
+@media (min-width: 768px) {
+  .products-container {
+    flex-wrap: nowrap; /* Don't wrap on medium screens and larger */
+    gap: 40px; /* Increase spacing on larger screens */
+  }
+}
+/* Products container */
+.products-container {
+  display: flex; /* Use Flexbox for side-by-side layout */
+  flex-wrap: wrap; /* Allow items to wrap to the next line when there's not enough space */
+  /* justify-content: space-between; */
+  gap: 24px; /* Add space between product items */
+  
+  margin-top: 80px; /* Make space for header */
+  padding: 80px; /* Optional: add padding to the container */
+}
+
+/* Product box */
+.product-box {
+  display: inline-block;
+  background: white;
+  padding: 25px;
+  gap: 50px;
+  text-align: center;
+  border: 1px solid #c51d1d;
+  border-radius: 5px;
+  vertical-align: middle;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 350px; /* Set width of each product box */
+  box-sizing: border-box; /* Ensure padding doesn't affect the width */
+  flex-direction: column; /* Align the image and text vertically */
+  align-items: center; /* Center align content */
+  margin-bottom: 40px;
+}
+
+/* Product image */
+.product-image {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+/* Product name and price */
+.product-name {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.product-price {
+  color: #28a745;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Add to cart button */
+.add-to-cart-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #8b5c33;
+}
+
+/* Footer */
+footer {
+  background: #262626;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  margin-top: auto; /* Ensures footer sticks to the bottom */
+}
+
+footer p {
+  margin: 0;
+}
+
+
+
+
+/* Styling for the search form in the navbar */
+.search-form-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-form-container form {
+  display: flex;
+  align-items: center;
+}
+
+.search-form-container input[type="text"] {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  width: 150px;  /* Adjust the width for compactness */
+}
+
+.search-form-container button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.search-form-container button:hover {
+  background-color: #45a049;
+}
+
+
+
+
+
+/* Navigation Links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  justify-content: center;  /* Centers the navigation links */
+  flex-grow: 1;
+}
+
+.nav-links li {
+  display: inline;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+}
+
+.nav-links li a:hover {
+  text-decoration: underline;
+}
+
+.header-container {
+  display: flex;
+  align-items: center; /* Aligns logo and search bar vertically */
+  justify-content: space-between; /* Ensures they are spaced apart */
+  padding: 10px; /* Optional: Adds padding for overall space */
+}
+
+.logo {
+  height: 150px; /* Adjust height */
+  width: auto; /* Maintain the aspect ratio */
+  transform: scale(2.5); /* Zoom in by 2.5x */
+  transform-origin: center; /* Ensure zoom is centered */
+  object-fit: cover; /* Ensures image is cropped while maintaining aspect ratio */
+}
+
+
+
+.cart-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Cart Button */
+.cart-btn {
+
+  background-color: transparent;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: absolute;
+  align-items: center;
+  right: 5px;
+}
+
+.cart-btn:hover {
+  color: #ffd700; /* Highlight the cart icon on hover */
+  transition: all 0.3s ease;
+}
+
+.cart-btn i {
+  font-size: 24px; /* Adjust the icon size */
+}
+
+/* Cart Count Bubble */
+#cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: #ff0000;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+
+
+.header-right {
+  position: fixed; /* Fix the position relative to the viewport */
+  top: 0; /* Align it to the top */
+  right: 40px; /* Position it 50px away from the right edge */
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Ensures there is space between profile and cart */
+  justify-content: flex-end; /* Aligns profile and cart to the right */
+  z-index: 1000; /* Makes sure it's above other content */
+}
+
+
+/* Style for profile icon */
+.profile-icon {
+  font-size: 30px;
+  color: #f7f1f1;
+  text-decoration: none;
+  margin-right: 50px;
+}
+
+
+
+/* cart items from here */
+
+
+
+
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cart-item img {
+  margin-right: 20px;
+  width: 100px;
+  height: 100px;
+}
+
+.cart-item div {
+  flex-grow: 1; /* This will allow the text to take up the remaining space */
+}
+
+.cart-item h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.cart-item p {
+  margin: 5px 0;
+}
+
+
+.profile-icon:hover, .cart-btn:hover {
+  color: #07f058;
+}
+
+
+
+
+
+
+
+/* about us css starts from here 
+ */
+
+
+ #about-us {
+  padding: 50px 0;
+  background-color: #f4f4f4;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.about-heading {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.about-heading h1 {
+  font-size: 36px;
+  font-weight: bold;
+  color: #2c6b2f;
+}
+
+.about-heading p {
+  font-size: 18px;
+  color: #555;
+}
+
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+}
+
+.about-text {
+  flex: 1;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.about-text h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #2c6b2f;
+}
+
+.about-text p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.about-text ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.about-text ul li {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.about-text strong {
+  color: #2c6b2f;
+}
+
+.about-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-footer {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 16px;
+  color: #777;
+}
+
+@media (max-width: 768px) {
+  .about-content {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .about-image img {
+      max-width: 100%;
+      margin-top: 20px;
+  }
+}
+
+
+
+
+
+
+
+
+
+/* contact form details starts from here */
+
+
+
+#contact-us {
+  padding: 50px 20px;
+  background-color: #f4f4f4;
+  font-family: 'Arial', sans-serif;
+}
+
+.contact-heading {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.contact-heading h1 {
+  font-size: 36px;
+  color: #333;
+}
+
+.contact-heading p {
+  font-size: 18px;
+  color: #666;
+}
+
+.contact-details {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.contact-details h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.contact-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contact-details ul li {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #555;
+}
+
+.contact-details a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.contact-details a:hover {
+  text-decoration: underline;
+}
+
+.contact-form {
+  max-width: 900px;
+  margin: 50px auto 0;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.contact-form h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.contact-form label {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.contact-form input, .contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.contact-form button {
+  background-color: #007bff;
+  color: white;
+  font-size: 18px;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .contact-details, .contact-form {
+      padding: 15px;
+  }
+
+  .contact-heading h1 {
+      font-size: 28px;
+  }
+
+  .contact-heading p {
+      font-size: 16px;
+  }
+
+  .contact-details ul li {
+      font-size: 16px;
+  }
+}
+
+
+
+
+
+
+
+
+
+/* signup and login starts from here */
+
+
+
+.form-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #4caf50;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.form-container p {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #777;
+}
+
+.form-container p a {
+  color: #4caf50;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.form-container p a:hover {
+  text-decoration: underline;
+}
+
+
+
+/* orders from here are starting */
+
+
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+h1, h2 {
+  color: #333;
+}
+
+
+
+
+
+
+
+
+
+/* home page css */
+
+.product-image {
+  position: absolute; /* Positions the image relative to the viewport */
+  top: 0; /* Aligns the image to the top of the page */
+  left: 0; /* Aligns the image to the left of the page */
+  width: 100%; /* Makes the image cover the full width of the page */
+  height: 100%; /* Makes the image cover the full height of the page */
+  object-fit: cover; /* Ensures the image covers the area without stretching */
+  z-index: -1; /* Sends the image to the background */
+}
+
+
+.category-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line if there's not enough space */
+  justify-content: space-around; /* Align the items with space between them */
+  gap: 20px; /* Add some space between the category boxes */
+  margin-top: 20px;
+}
+
+/* CSS for individual category boxes */
+.category-box {
+  display: flex;
+  flex-direction: column; /* Align the image and text vertically */
+  align-items: center; /* Center the content (image and text) */
+  max-width: 200px; /* Adjust this value for the desired size of each category box */
+  text-align: center;
+}
+
+/* CSS for the category image */
+.category-image {
+  width: 150px; /* Adjust the width as per your requirement */
+  height: 150px; /* Set the height to control the size */
+  object-fit: cover; /* Ensure the image covers the area without stretching */
+  border-radius: 8px; /* Optional: Add rounded corners to the image */
+}
+
+/* Optional: Add hover effect for category box */
+.category-box:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Container for all products */
+.product-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow horizontal scrolling if content overflows */
+  gap: 20px; /* Space between product items */
+  padding: 20px;
+}
+
+/* Each product item */
+.product-item {
+  display: flex;
+  flex-direction: column; /* Stack the image and details vertically inside each product item */
+  width: 200px; /* Width of each product item */
+  margin-right: 10px; /* Space between items */
+  text-align: center; /* Center align text */
+  border: 1px solid #ddd; /* Optional: Add border for a cleaner look */
+  border-radius: 10px; /* Optional: Rounded corners for product item */
+  padding: 10px; /* Add some padding */
+}
+
+/* Product image */
+.product-image {
+  display: inline-block;
+  width: 150px; /* Fixed width for the image */
+  height: 150px; /* Fixed height for the image */
+  object-fit: cover; /* Ensure the image covers the given space */
+  border-radius: 5px; /* Optional: Rounded corners for images */
+
+}
+
+/* Product details */
+.product-details {
+  margin-top: 10px;
+}
+
+/* Product name styling */
+.product-details strong {
+  display: block; /* Ensure the name is on its own line */
+  margin-bottom: 5px;
+}
+
+/* Price and description */
+.product-details span {
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Hero Section */
+#hero {
+  position: relative;
+  width: 100%;
+  height: 50vh;  /* Adjust the height of the hero section */
+  overflow: hidden; /* Ensure the content outside this section is hidden */
+  background-color: #f2f2f2; /* Optional: Background color */
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 400px;  /* You can adjust the height as per your design */
+}
+
+.carousel-slides {
+  display: flex;
+  transition: transform 1s ease-in-out; /* Smooth slide transition */
+}
+
+.carousel-inner img {
+  object-fit: cover;
+  height: 250px;  /* Decrease the height of the carousel images */
+  width: 100%;    /* Make sure the image spans the full width */
+}
+
+.carousel-item {
+  width: 100%;  /* Each image takes up full width of the container */
+  height: 100%;
+  display: none;  /* Start by hiding all slides */
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the container without distortion */
+}
