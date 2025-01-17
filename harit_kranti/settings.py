@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'shop',
+    'whitenoise', 
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
 ]
 
 ROOT_URLCONF = "harit_kranti.urls"
@@ -164,9 +166,21 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # settings.py
-RAZORPAY_KEY_ID = 'rzp_test_kfCxlrT0lhafKm'
-RAZORPAY_SECRET_KEY = 'aWDTOtJn4R5QPx8gdyrB8Zgh'
+RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID')
+RAZORPAY_SECRET_KEY = os.getenv('RAZORPAY_SECRET_KEY')
 
 
 LOGIN_REDIRECT_URL = '/'  # Or any URL you want the user to be redirected to after login
 
+
+
+TWILIO_ACCOUNT_SID = 'ACe2351ba25db4d30c3661c3cc41ec975c'
+TWILIO_AUTH_TOKEN = '910237805a02b502c516a50016e531e4'
+TWILIO_PHONE_NUMBER = '+16204458588'
+
+
+from dotenv import load_dotenv
+load_dotenv()
+
+TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')

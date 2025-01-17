@@ -186,9 +186,19 @@ def contact(request):
 
 
 def cart(request):
-    cart_items = request.session.get('cart', {})
-    addresses = Address.objects.filter(user=request.user)
-    return render(request, 'cart.html', {'cart_items': cart_items, 'addresses': addresses})
+    # Check if user is authenticated
+    if request.user.is_authenticated:
+        # Fetch cart items from the session
+        cart_items = request.session.get('cart', {})
+        
+        # Fetch user-specific addresses
+        addresses = Address.objects.filter(user=request.user)
+        
+        # Render the cart page
+        return render(request, 'cart.html', {'cart_items': cart_items, 'addresses': addresses})
+    else:
+        # If the user is not authenticated, redirect to the login page
+        return redirect('login')
 
 
 def manage_address(request):
@@ -298,7 +308,7 @@ def send_otp_via_whatsapp(phone_number):
     account_sid = 'ACe2351ba25db4d30c3661c3cc41ec975c'
     auth_token = 'd23684d056e79343ebb8da0dcc8da60a'
 
-    whatsapp_from = 'whatsapp:+14155238886'  # Twilio's WhatsApp sandbox number
+    whatsapp_from = 'whatsapp:+16204458588'  # Twilio's WhatsApp sandbox number
 
     # Generate a 6-digit OTP
     otp = random.randint(100000, 999999)
@@ -310,7 +320,7 @@ def send_otp_via_whatsapp(phone_number):
     message = client.messages.create(
         body=f"Your Harit Aahar OTP is: {otp}. Please use this to verify your account.",
         from_=whatsapp_from,
-        to=f'whatsapp:+{919731615178}'  # Ensure the number is in E.164 format
+        to=f'whatsapp:{phone_number}'  # Ensure the number is in E.164 format
     )
 
     # Return the OTP for verification
