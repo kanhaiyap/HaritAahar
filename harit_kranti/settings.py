@@ -82,17 +82,37 @@ WSGI_APPLICATION = "harit_kranti.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 import os
-DATABASES = {
-    "default": {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('PGDATABASE'),
-        'USER': os.getenv('PGUSER'),
-        'PASSWORD': os.getenv('PGPASSWORD'),
-        'HOST': os.getenv('PGHOST'),
-        'PORT': os.getenv('PGPORT', '5432'),                       # Default MySQL port
+import dj_database_url
+from decouple import config
 
-    }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'haritaahar_6z6r',
+#         'USER': 'haritaahar_6z6r_user',
+#         'PASSWORD': 'ATmQUm2Cjr5v6gtmlxK6oWwDedVjJWPn',
+#         'HOST': 'dpg-cu52m4q3esus73am3u3g-a.oregon-postgres.render.com',
+#         'PORT': '5432',
+#     }
+# }
+
+DATABASES = {
+    'default': dj_database_url.parse(
+        config('DATABASE_URL')
+    )
 }
+
+# DATABASES = {
+#     "default": {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('PGDATABASE'),
+#         'USER': os.getenv('PGUSER'),
+#         'PASSWORD': os.getenv('PGPASSWORD'),
+#         'HOST': os.getenv('PGHOST'),
+#         'PORT': os.getenv('PGPORT', '5432'),                       # Default MySQL port
+
+#     }
+# }
 
 
 # Password validation
@@ -173,10 +193,6 @@ RAZORPAY_SECRET_KEY = os.getenv('RAZORPAY_SECRET_KEY')
 LOGIN_REDIRECT_URL = '/'  # Or any URL you want the user to be redirected to after login
 
 
-
-TWILIO_ACCOUNT_SID = 'ACe2351ba25db4d30c3661c3cc41ec975c'
-TWILIO_AUTH_TOKEN = '910237805a02b502c516a50016e531e4'
-TWILIO_PHONE_NUMBER = '+16204458588'
 
 
 from dotenv import load_dotenv
